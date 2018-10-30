@@ -27,5 +27,8 @@
 //     res.send()
 // }
 
-module.exports.userController = require('../controllers/userController')
-module.exports.postController = require('../controllers/postController')
+module.exports = {
+    userController: require('../controllers/userController'),
+    postController: require('../controllers/postController')
+}
+

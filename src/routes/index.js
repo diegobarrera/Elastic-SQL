@@ -1,14 +1,19 @@
 const express = require('express')
 const router = express.Router()
-const {userController, postController } = require('../controllers/index')
+const {
+  userController,
+  postController
+} = require('../controllers/index')
 
-/* GET home page. */
+// TODO: Add sanitizer and param validator (joi)
+
+// HEALTH CHECK
 router.get('/', function (req, res, next) {
-  res.send('pong')
-})
+  res.send('ok')
+}) 
 
 // USER
-router.post('/user', userController)
+router.post('/user', userController.create)
 
 //POST
 router.get('/posts', postController.getAll)

@@ -4,27 +4,30 @@ var esclient = new elasticsearch.Client({
 });
 
 
-const createAndFind = async function () {
-  // const newProduct = {
-  //   index: 'myindex',
-  //   type: 'mytype',
-  //   id: '1',
-  //   body: {
-  //     name: 'Product 1',
-  //     tags: ['y', 'z'],
-  //     published: true,
-  //     published_at: '2013-01-01',
-  //     counter: 1
-  //   }
-  // }
-  // await esclient.create(newProduct);
+const createPost = async function (post) {
+  const newProduct = {
+    index: 'myindex',
+    type: 'mytype',
+    id: '1',
+    body: {
+      name: 'Product 1',
+      tags: ['y', 'z'],
+      published: true,
+      published_at: '2013-01-01',
+      counter: 1
+    }
+  }
+  return await esclient.create(newProduct);
   
+}
+
+const getPosts = async function(name) {
   const response = await esclient.search({
     index: 'myindex',
     body: {
       query: {
         match: {
-          name: 'Product 1'
+          name: name
         }
       },
       aggs: {
@@ -37,9 +40,8 @@ const createAndFind = async function () {
       }
     }
   })
-  
   const hits = response.hits.hits
-  console.log(hits)
+  return hits
 }
 
-module.exports.test = createAndFind
+module.exports = { createPost, getPosts }

@@ -1,4 +1,5 @@
 'use strict';
+const elastic = require('../library/products')
 
 module.exports = (sequelize, DataTypes) => {
   
@@ -7,12 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.TEXT
   }, {
     timestamp: true
-  });
+  })
 
-  Post.associate = function(models) {
-    // associations can be defined here
-    models.Post.hasMany(models.Comment)
-  };
+  Post.createPost = async function(newPost) {
+    try {
+      const post = await Post.create(newPost)
+      await elastic.createPost()
+      return post
+    } catch (error) {
+     return error 
+    }
+  }
 
   return Post;
 };
