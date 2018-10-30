@@ -13,9 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   sequelize.models.User.hasMany(sequelize.models.Post)
 
   // Class methods
-  User.associate = function (models) {
-  };
-
   User.createUser = async function() {
     try {
       const user = await User.create({
